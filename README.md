@@ -8,5 +8,5 @@ Project 01 - Email Reader
 	
 Project 02 - Meeting Setter
 > From a text message, extract: emails, location, duration.
-> Uses Regular expression and common specifiers for Email and Duration extration.
+> Uses Regular expression and common specifiers for Email and Duration extraction.
 > Uses NLTK models for Location extraction.
