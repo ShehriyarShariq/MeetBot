@@ -10,3 +10,8 @@ Project 02 - Meeting Setter
 > From a text message, extract: emails, location, duration.
 > Uses Regular expression and common specifiers for Email and Duration extraction.
 > Uses NLTK models for Location extraction.
+
+Project 03 - Meeting Setter Login/SignUp Activity
+> Login and SignUp activities.
+> Login with Email and Password.
+> SignUp with Email/Password, Google SignUp and Facebook SignUp.
