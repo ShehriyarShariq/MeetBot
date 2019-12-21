@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="white">#FFFFFF</color>
+
+    <color name="mainBG">#FF7C6A</color>
+    <color name="darkPurple">#533E47</color>
+    <color name="googlePlusSignUpBtnColor">#DC4439</color>
+    <color name="facebookSignUpBtnColor">#3a559f</color>
+
+    <color name="gray">#B0B0B0</color>
+    <color name="darkGray">#6D6D6D</color>
+</resources>
