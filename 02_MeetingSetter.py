@@ -24,7 +24,7 @@ class MeetingSetter:
         def getEmails(self, text):
                 # Return all emails found in sorce based on provided Regular Expression for emails 
                 #(99% proven capability) - Source: https://emailregex.com/
-                return re.findall(self.emailRegex, sentence)
+                return re.findall(self.emailRegex, text)
 
         def getLocations(self, text):
                 # Uses NLP to categorize chunks

@@ -15,3 +15,9 @@ Project 03 - Meeting Setter Login/SignUp Activity
 > Login and SignUp activities.
 > Login with Email and Password.
 > SignUp with Email/Password, Google SignUp and Facebook SignUp.
+
+Project 04 - Experience Advisor (NOT PRESENT AT THE MOMENT)
+
+Project 05 - Modified Meeting Setter
+> Apply the original meeter setter code on incomming emails.
+> Send meeting emails to extracted emails with respective and customized extracted data.
