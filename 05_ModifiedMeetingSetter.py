@@ -259,7 +259,32 @@ def genEmailContent(emailFrom, emailDetails):
                 otherEmails = list(emailDetails['emails'])
                 otherEmails.remove(email)
 
-                content = str(emailFrom) + " has invited you and " + str(', '.join(otherEmails)) + " to a meeting"
+                content = """
+                        <html>
+                                <body>
+                                        <h2 style="text-align: justify;text-align-last: center;">Meetbot</h2>
+                                        <p style="text-align: justify;text-align-last: center;">""" + str(emailFrom) + " has invited you and " + str(', '.join(otherEmails)) + " to a meeting" + """</p>
+                                        <div style="margin-top:50px;text-align: justify;text-align-last: center;">
+                                                <input 
+                                                        type="image" 
+                                                        src="http://files.softicons.com/download/computer-icons/android-smartphones-icons-by-abhi-aravind/png/256x256/Android%20Logo.png"
+                                                        style="width:40px;height:40px;margin-right:30px"
+                                                        alt="Android">
+                                                <input 
+                                                        type="image" 
+                                                        src="http://pngimg.com/uploads/apple_logo/apple_logo_PNG19679.png"
+                                                        style="width:40px;height:40px;margin-right:30px"
+                                                        alt="Apple">
+                                                <input 
+                                                        type="image" 
+                                                        src="https://image.flaticon.com/icons/png/128/93/93618.png"
+                                                        style="width:40px;height:40px"
+                                                        alt="Web App">
+                                        </div>
+                                </body>
+                        </html>
+                """
+
                 if duration != '':
                         content += " of " + str(duration)
                 if len(locations) > 0:
