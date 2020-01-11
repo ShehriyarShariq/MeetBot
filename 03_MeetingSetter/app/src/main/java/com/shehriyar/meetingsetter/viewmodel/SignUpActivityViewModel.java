@@ -15,6 +15,7 @@ public class SignUpActivityViewModel extends AndroidViewModel {
 
     private MutableLiveData<Boolean> isUserCreated = signUpActivityNetworkRequestsSingleton.getIsUserCreated();
     private MutableLiveData<Boolean> isUserWithCredCreated = signUpActivityNetworkRequestsSingleton.getIsUserWithCredCreated();
+    private MutableLiveData<Boolean> isUserAddedToDB = signUpActivityNetworkRequestsSingleton.getIsUserAddedToDB();
     private MutableLiveData<Boolean> isError = signUpActivityNetworkRequestsSingleton.getIsError();
 
     public SignUpActivityViewModel(@NonNull Application application) {
@@ -29,12 +30,20 @@ public class SignUpActivityViewModel extends AndroidViewModel {
         signUpActivityNetworkRequestsSingleton.signInWithCredRequest(credential);
     }
 
+    public void addUserToDB(){
+        signUpActivityNetworkRequestsSingleton.addUserToDB();
+    }
+
     public MutableLiveData<Boolean> getIsUserCreated() {
         return isUserCreated;
     }
 
     public MutableLiveData<Boolean> getIsUserWithCredCreated() {
         return isUserWithCredCreated;
+    }
+
+    public MutableLiveData<Boolean> getIsUserAddedToDB() {
+        return isUserAddedToDB;
     }
 
     public MutableLiveData<Boolean> getIsError() {

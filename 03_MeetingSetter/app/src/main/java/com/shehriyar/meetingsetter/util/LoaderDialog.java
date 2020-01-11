@@ -37,6 +37,12 @@ public class LoaderDialog {
             case "SignUp": // Data Loader Dialog
                 label.setText("Signing Up...");
                 break;
+            case "Load":
+                label.setText("Loading...");
+                break;
+            case "Upload":
+                label.setText("Uploading...");
+                break;
         }
 
         dialog.show();

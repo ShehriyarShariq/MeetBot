@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ExperienceActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:elevation="2dp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/backBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_back"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="H, 1:1"
+                            app:layout_constraintHeight_percent="0.8"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/expMapImg"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/dummy_exp_map"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="2.2"
+                            android:layout_marginRight="10dp">
+
+                            <TextView
+                                android:id="@+id/expName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Yashperth Trek"
+                                android:textColor="#000"
+                                android:textSize="30sp"
+                                android:fontFamily="sans-serif-black"/>
+
+                            <TextView
+                                android:id="@+id/location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hunza, Pakistan"
+                                android:textColor="#000"
+                                android:textSize="17sp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="0.8">
+
+                            <TextView
+                                android:id="@+id/price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$49"
+                                android:textColor="#000"
+                                android:textSize="30sp"
+                                android:fontFamily="sans-serif-black"
+                                android:layout_gravity="end"
+                                android:textAlignment="textEnd"/>
+
+                            <TextView
+                                android:id="@+id/personLimit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="upto 3 persons"
+                                android:textColor="#000"
+                                android:textSize="17sp"
+                                android:layout_gravity="right"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_time"/>
+
+                        <TextView
+                            android:id="@+id/duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7 hours"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="14sp"
+                            android:textColor="#000"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_dist"
+                            android:layout_marginLeft="30dp"/>
+
+                        <TextView
+                            android:id="@+id/distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12 Kms"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="14sp"
+                            android:textColor="#000"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Description"
+                            android:textSize="25sp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-black"/>
+
+                        <TextView
+                            android:id="@+id/desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-light"
+                            android:lineSpacingMultiplier="1.1"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="You will be connected to a local guide who will take you to an amazing adventurous trek to Yeshperth. Your food, camps for accommodation and all the trek relate stuff will be taken care of."/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Itinerary"
+                        android:textSize="25sp"
+                        android:textColor="#000"
+                        android:fontFamily="sans-serif-black"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/itinerary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:overScrollMode="never" />
+
+                    <TextView
+                        android:id="@+id/emptyItinerary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="#000"
+                        android:fontFamily="sans-serif-light"
+                        android:lineSpacingMultiplier="1.1"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:text="To be decided"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/aboutHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="About Yeshperth"
+                            android:textSize="25sp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-black"/>
+
+                        <TextView
+                            android:id="@+id/about"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-light"
+                            android:lineSpacingMultiplier="1.1"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="You will be connected to a local guide who will take you to an amazing adventurous trek to Yeshperth. Your food, camps for accommodation and all the trek relate stuff will be taken care of."/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:layout_marginTop="25dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Attractions"
+                            android:textSize="25sp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-black"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/attractionsList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:layout_marginTop="30dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Backpacking"
+                            android:textSize="25sp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-black"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/equipmentsList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:layout_marginTop="25dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Precautions"
+                            android:textSize="25sp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-black"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/precautionsList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never"/>
+
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bookNowBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        app:cardBackgroundColor="@color/grayishBlue"
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginTop="25dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:text="Book Now"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:fontFamily="sans-serif-black"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="What people say about this experience"
+                            android:textSize="25sp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-black"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/ratingsList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/reviewsList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:overScrollMode="never"/>
+
+                        <TextView
+                            android:id="@+id/emptyReviews"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:textColor="#000"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_marginTop="10dp"
+                            android:text="No reviews found..."
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

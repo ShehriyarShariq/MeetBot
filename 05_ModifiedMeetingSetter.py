@@ -36,7 +36,7 @@ days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 # Regular Expressions for extracting date and time from string
 timeRegex = re.compile(r'\d\d:\d\d:\d\d') # Time String Extraction
-dateRegex = re.compile(r'\d\d\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d\d\d\d') # Date String Extraction
+dateRegex = re.compile(r'[0-9]+\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d\d\d\d') # Date String Extraction
 dateMonthRegex = re.compile(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)') # Date Month String Extraction
 timeDiffRegex = re.compile(r'[+,-]\d\d\d\d') # Time Correction String Extraction
 
@@ -215,18 +215,21 @@ def correctTimeStr(time, correction):
                 else:
                         currHour -= hourCorrectionVal
         
+                if currHour < 0:
+                        currHour += 24
+
                 return str(currHour) + time[time.index(':'):]
 
         return time
 
-def calcTimeDiff(time1, time2):    
+def calcTimeDiff(time1, time2):
         # Time str
         time1TimeStr = timeRegex.search(time1).group()
         
         # Time correction Str
         time1TimeDiff = (timeDiffRegex.search(time1)).group()
         time1TimeStr = correctTimeStr(time1TimeStr, time1TimeDiff)
-
+        
         # Email sent date
         time1Date = dateRegex.search(time1)
         time1DateStr = time1Date.group()
@@ -251,6 +254,9 @@ def calcTimeDiff(time1, time2):
         return subDateRes + ', ' + subTimeRes
 
 def genEmailContent(emailFrom, emailDetails):
+        smtpConnection = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        smtpConnection.login(user, password)
+
         emails = emailDetails['emails']
         locations = emailDetails['locations']
         duration = emailDetails['duration']
@@ -263,7 +269,19 @@ def genEmailContent(emailFrom, emailDetails):
                         <html>
                                 <body>
                                         <h2 style="text-align: justify;text-align-last: center;">Meetbot</h2>
-                                        <p style="text-align: justify;text-align-last: center;">""" + str(emailFrom) + " has invited you and " + str(', '.join(otherEmails)) + " to a meeting" + """</p>
+                                        <p style="text-align: justify;text-align-last: center;">""" + str(emailFrom) + " has invited you"
+
+                if len(otherEmails) > 0:
+                        content += " and " + str(', '.join(otherEmails))
+
+                content += " to a meeting"
+
+                if duration != '':
+                        content += " of " + str(duration)
+                if len(locations) > 0:
+                        content += " at " + str(', '.join(locations))
+                
+                content += """. Please select the time and date for the meeting at:meetbot.pythonanywhere.com</p>
                                         <div style="margin-top:50px;text-align: justify;text-align-last: center;">
                                                 <input 
                                                         type="image" 
@@ -284,15 +302,8 @@ def genEmailContent(emailFrom, emailDetails):
                                 </body>
                         </html>
                 """
-
-                if duration != '':
-                        content += " of " + str(duration)
-                if len(locations) > 0:
-                        content += " at " + str(', '.join(locations))
                 
-                content += '. Please select the time and date for the meeting at:meetbot.pythonanywhere.com'
-                
-                msg = MIMEText(content)
+                msg = MIMEText(content, 'html')
                 msg["Subject"] = "Meeting Invitation"
                 msg["From"] = user
                 msg["To"] = email

@@ -33,12 +33,15 @@ import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthProvider;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.shehriyar.meetingsetter.R;
 import com.shehriyar.meetingsetter.databinding.ActivitySignUpBinding;
 import com.shehriyar.meetingsetter.util.LoaderDialog;
 import com.shehriyar.meetingsetter.util.UtilFunctions;
 import com.shehriyar.meetingsetter.viewmodel.SignUpActivityViewModel;
+
+import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -49,12 +52,14 @@ public class SignUpActivity extends AppCompatActivity {
     SignUpActivityViewModel viewModel;
 
     // LiveData objects
-    LiveData<Boolean> isUserCreated, isUserWithCredCreated, isError;
+    LiveData<Boolean> isUserCreated, isUserWithCredCreated, isUserAddedToDB, isError;
 
     GoogleSignInClient googleSignInClient;
     CallbackManager fbCallbackManager;
 
     LoaderDialog signUpProgressDialog;
+
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +89,8 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpProgressDialog.hideDialog();
                     Toast.makeText(SignUpActivity.this, "SignUp Success...", Toast.LENGTH_SHORT).show();
 
+                    viewModel.addUserToDB();
+
                     // UNCOMMENT THE BELOW PIECE OF CODE FOR FURTHER IMPLEMENTATION+
 //                    isSuccess();
                 }
@@ -97,9 +104,18 @@ public class SignUpActivity extends AppCompatActivity {
                 if (isSuccess) {
                     Toast.makeText(SignUpActivity.this, "SignUp Success...", Toast.LENGTH_SHORT).show();
 
+                    viewModel.addUserToDB();
                     // Open next activity from here
 //                    startActivity(new Intent(SignUpActivity.this, * YOUR_ACTIVITY_GOES_HERE *.class));
                 }
+            }
+        });
+
+        isUserAddedToDB = viewModel.getIsUserAddedToDB();
+        isUserAddedToDB.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+
             }
         });
 

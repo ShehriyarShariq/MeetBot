@@ -10,17 +10,24 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class SignUpActivityNetworkRequestsSingleton {
 
     FirebaseAuth firebaseAuth;
+    DatabaseReference firebaseDatabase;
 
     private MutableLiveData<Boolean> isUserCreated = new MutableLiveData<>();
     private MutableLiveData<Boolean> isUserWithCredCreated = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isUserAddedToDB = new MutableLiveData<>();
     private MutableLiveData<Boolean> isError = new MutableLiveData<>();
 
     SignUpActivityNetworkRequestsSingleton(){
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private static SignUpActivityNetworkRequestsSingleton holder = new SignUpActivityNetworkRequestsSingleton();
@@ -73,6 +80,23 @@ public class SignUpActivityNetworkRequestsSingleton {
         });
     }
 
+    public void addUserToDB(){
+        FirebaseUser newUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        HashMap<String, Object> newUserMap = new HashMap<>();
+        newUserMap.put("name", newUser.getDisplayName());
+        newUserMap.put("email", newUser.getEmail());
+
+        HashMap<String, String> meetings = new HashMap<>();
+        meetings.put("meetingID", "meetingID");
+
+        newUserMap.put("Requests", meetings);
+        newUserMap.put("Scheduled", meetings);
+
+        firebaseDatabase.child("Users").child(newUser.getUid()).setValue(newUserMap);
+
+    }
+
     public MutableLiveData<Boolean> getIsUserCreated() {
         return isUserCreated;
     }
@@ -89,6 +113,14 @@ public class SignUpActivityNetworkRequestsSingleton {
         this.isUserWithCredCreated.postValue(isUserWithCredCreated);
     }
 
+    public MutableLiveData<Boolean> getIsUserAddedToDB() {
+        return isUserAddedToDB;
+    }
+
+    private void setIsUserAddedToDB(Boolean isUserAddedToDB) {
+        this.isUserAddedToDB.postValue(isUserAddedToDB);
+    }
+
     public MutableLiveData<Boolean> getIsError() {
         return isError;
     }
@@ -100,6 +132,7 @@ public class SignUpActivityNetworkRequestsSingleton {
     public void reset(){
         setIsUserCreated(false);
         setIsUserWithCredCreated(false);
+        setIsUserAddedToDB(false);
         setIsError(false);
     }
 }

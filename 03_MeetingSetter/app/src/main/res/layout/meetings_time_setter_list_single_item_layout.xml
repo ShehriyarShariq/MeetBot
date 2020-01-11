@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#000">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_date"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="01 Feb 2020"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="25dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="Start Time"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="End Time"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_weight="1"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_marginTop="5dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/startTimeSelector"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            app:cardBackgroundColor="@color/gray"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="7.5dp"
+                            app:cardCornerRadius="3dp">
+
+                            <TextView
+                                android:id="@+id/startTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="00:00"
+                                android:textColor="#000"
+                                android:textAlignment="center"
+                                android:gravity="center"
+                                android:textSize="17sp"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/endTimeSelector"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            app:cardBackgroundColor="@color/gray"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="7.5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginRight="10dp"
+                            app:cardCornerRadius="3dp">
+
+                            <TextView
+                                android:id="@+id/endTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="00:00"
+                                android:textColor="#000"
+                                android:textAlignment="center"
+                                android:gravity="center"
+                                android:textSize="17sp"/>
+
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

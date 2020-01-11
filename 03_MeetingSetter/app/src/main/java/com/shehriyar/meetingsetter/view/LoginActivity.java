@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login Success...", Toast.LENGTH_SHORT).show();
 
                     // UNCOMMENT THE BELOW PIECE OF CODE FOR FURTHER IMPLEMENTATION
-//                    isSuccess();
+                    isSuccess();
                 }
             }
         });
@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean isError) {
                 if(isError){
+                    logInProgressDialog.hideDialog();
                     Toast.makeText(LoginActivity.this, "Invalid credentials...", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -115,6 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         editor.commit();
 
         // Open next activity from here
-//        startActivity(new Intent(LoginActivity.this, *YOUR_ACTIVITY_GOES_HERE*.class));
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 }
