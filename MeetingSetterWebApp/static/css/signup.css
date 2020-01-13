@@ -1,0 +1,154 @@
+
+#login_background{
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.7;
+}
+
+#copyright-icon{
+    float: left;
+}
+#social-icons{
+    float: right;
+}
+#social-icons>a {
+
+    color: white;
+}
+
+footer{
+    background-color: #474350;
+    color: white;
+}
+#blured{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 100px auto;
+    padding: 0px auto;
+    width: 600px;
+    height: 500px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#logo {
+    margin: 0px auto;
+    padding: 0px auto;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+}
+
+#heading{
+    margin: 0px auto;
+    padding: 0px auto;
+    color: #474350;
+    font-family: Segoe UI;
+    font-weight: bolder;
+    font-size: 30px;
+}
+.grouped-input>input{
+    border-left: none;
+    border-bottom-right-radius:15px;
+      border-bottom-left-radius:15px;
+     -moz-border-radius-bottomright:15px;
+     -moz-border-radius-bottomleft:15px;
+     -webkit-border-bottom-right-radius:15px;
+     -webkit-border-bottom-left-radius:15px;
+
+      -moz-border-radius-topright:15px;
+      -moz-border-radius-topleft:15px;
+      -webkit-border-top-right-radius:15px;
+      -webkit-border-top-left-radius:15px;
+      border-top-right-radius:15px;
+      border-top-left-radius:15px;
+}
+
+.grouped-input{
+    margin: 10px auto;
+    
+    max-width: 300px;
+
+}
+
+#forgot-password-text{
+    font: Segoe UI;
+    float: none;
+    margin-left: 30px;
+    font-size: 14px;
+    color: #FF7C6B;
+}
+
+#btw-btn-text{
+    margin-bottom: 0px;
+    margin-top: 5px;
+    color: #474350;
+    font-family: Segoe UI;
+    font-size: small;
+    
+}
+.button-opt{
+    min-width: 300px;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #FF7C6B;
+    color: white;
+    font-family: Segoe UI;
+    font-weight: bolder;
+    border: none;
+    font-size: 18px;
+    border-bottom-right-radius:15px;
+      border-bottom-left-radius:15px;
+     -moz-border-radius-bottomright:15px;
+     -moz-border-radius-bottomleft:15px;
+     -webkit-border-bottom-right-radius:15px;
+     -webkit-border-bottom-left-radius:15px;
+
+      -moz-border-radius-topright:15px;
+      -moz-border-radius-topleft:15px;
+      -webkit-border-top-right-radius:15px;
+      -webkit-border-top-left-radius:15px;
+      border-top-right-radius:15px;
+      border-top-left-radius:15px;
+    
+}
+
+.google-btn{
+    min-width: 300px;
+    margin: 5px;
+    padding: 5px;
+    background-color: #DB4437;
+    color: white;
+    font-family: Segoe UI;
+    font-weight: bolder;
+    font-size: 20px;    
+}
+
+.facebook-btn{
+    min-width: 300px;
+    margin: 5px;
+    padding: 5px;
+    background-color:#3B5998;
+    color: white;
+    font-family: Segoe UI;
+    font-weight: bolder;
+    border: none;
+    font-size: 20px;
+}
+
+.google-btn>i{
+    margin-right: 10px;
+    padding-right: 5px;
+    border-right: 1px solid #707070;
+}
+
+.facebook-btn>i{
+    margin-right: 25px;
+    padding-right: 10px;
+    border-right: 1px solid #707070;
+}

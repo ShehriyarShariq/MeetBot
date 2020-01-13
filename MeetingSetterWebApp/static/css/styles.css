@@ -1,0 +1,77 @@
+#header{
+    margin-bottom: 20px;
+    padding-top: 20px;
+    width: 100%;
+    background:#474350;
+    min-height:110px;
+    color: white;
+    font-size: 22px;
+    font: Segoe UI;
+    font-weight: bolder;
+}
+
+.logo-text{
+    right: 65px;        
+}
+.user-text{
+    left: 70px;
+}
+
+#user-circle{
+    color: #FF7C6B;
+    font-size: 50px;
+    margin-top: 20px;
+    margin-left:15px;
+    
+}
+
+.row-header{
+    margin: 0px auto;
+    padding: 0px auto;
+    font-family: 'Segoe UI';
+}
+
+#table-container{
+    margin: 0px auto;
+    padding: 0px auto;
+    border: 2px solid black;
+    left: 15px;
+
+}
+
+
+
+#calender-month{
+    margin: 0px auto;
+    padding: 0px auto;
+    color: #474350;
+    letter-spacing: 0;
+    font:Black  Montserrat;
+    font-size: 30px;
+    font-weight: bolder;
+}
+#calender-prev-btn{
+    text-align: center;
+    margin: 10px 0px 20px 0px;
+    padding: 5px 22px 5px 22px;
+    border: 2px solid #FF7C6B;
+    background: white;
+    color: #FF7C6B;
+    display: none;
+}
+
+#calender-container{
+    display: flex;
+}
+
+#calender-next-btn{
+    margin: 10px 0px 20px 0px;
+    padding: 5px 30px 5px 30px;
+    background: #FF7C6B;
+    color: white;
+}
+
+th{
+    margin: 0px auto;
+    padding: 0px auto;
+}

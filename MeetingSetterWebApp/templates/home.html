@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{% static 'css/user_page.css' %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+    <title>user_page</title>
+
+</head>
+
+<body>
+
+    <header id="header" onload="myFunction()">
+        <div class="container">
+            <div class="row row-header text-center">
+                <div class="col-md-3 logo-text">Logo<br>Meeting App</div>
+                <div class="col-md-5"></div>
+                <div class="col-md-4 user-text" onclick="location.href='{% url 'logout' %}'">{{ name }} <i
+                        id="user-circle" class="fa fa-user-circle fa-lg"></i>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <button type="button" class="big-btn" style="float: right;"><span
+                        class="fa fa-users fa-lg"></span>Create a new Meeting</button>
+            </div>
+
+            <div class="col-sm-6">
+                <button type="button" class="big-btn" style="float: left;"><span
+                        class="fa fa-pencil fa-lg"></span>Request a Meeting</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div id="scheduled-meeting-head" class="row">
+            <div class="col-sm-9 offset-1">
+                <p>Scheduled Meetings</p>
+            </div>
+        </div>
+    </div>
+
+    {% for meeting in meetings %}
+    <div id="second-card-container">
+        <div class="container card-container">
+            <div class="row">
+                <div class="main-col col-sm-2 user-icon" style="margin-right:5px">
+                    <span class="fa fa-user-circle fa-lg"></span>
+                </div>
+                <div class="main-col col-sm-6">
+                    <div class="row">
+                        <div class="col-12 meeting-info-text">
+                            <h4 style="font-weight: unset;"><span
+                                    style="font-weight: bold;">{{ meeting.initiatorName }}</span> has
+                                scheduled a meeting</h4>
+                        </div>
+                        <div class="col-sm-12 meeting-info-text">
+                            <h5 style="font-weight: bold;">Attendees</h5>
+                        </div>
+                        <div class="col-sm-12 meeting-info-text" style="margin-top: 0px;">
+                            {% for invitee in meeting.invitees %}
+                            <p class="user-info" style="font-size:13px;">{{ invitee.name }} ({{ invitee.email }})</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="main-col col-sm-3">
+                    <div class="row text-center">
+                        <div col-sm-12 style="text-align:  end;width:  100%;margin-top:  2px;margin-right:  2px;">
+                            <span id="edit-icon" class="fa fa-edit fa-lg"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <p class="meeting-icons"><span class="fa fa-calendar fa-lg "></span>{{ meeting.date }}
+                            </p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p class="meeting-icons clock-icon"><span
+                                    class="fa fa-clock-o fa-lg"></span>{{ meeting.start }}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p class="meeting-icons"><span class="fa fa-map-pin fa-lg"></span>{{ meeting.location  }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

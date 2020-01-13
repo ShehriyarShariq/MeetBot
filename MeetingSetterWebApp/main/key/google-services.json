@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "363631733828",
+    "firebase_url": "https://meetingsetter-9605e.firebaseio.com",
+    "project_id": "meetingsetter-9605e",
+    "storage_bucket": "meetingsetter-9605e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363631733828:android:66f57f8de2b656f1fda011",
+        "android_client_info": {
+          "package_name": "com.shehriyar.meetingsetter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "363631733828-5g3q295kj9tj0fharrm1efocgqa3n00q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shehriyar.meetingsetter",
+            "certificate_hash": "d19eb7196661ff340ce0669b57124cea542d2d99"
+          }
+        },
+        {
+          "client_id": "363631733828-stur8nbs0vu3bhkd31uergequqjecae1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM6uNNKtsfNR4GYIeD2bCF2aFRlxs_q7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "363631733828-stur8nbs0vu3bhkd31uergequqjecae1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/login_page.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+
+<body background="{% static 'img/people-coffee-meeting-team-7096.jpg' %}">
+
+    <div id="blured" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="logo"></div>
+            </div>
+            <div id="logo-text" class="col-sm-12 text-center">
+                <p>Logo Meeting App</p>
+            </div>
+
+            <form id="loginForm" class="col-sm-12" method="POST">
+                {% csrf_token %}
+                <div class="col-sm-12">
+                    <div class="input-group mb-3 grouped-input">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text fa fa-envelope fa-lg"></span>
+                        </div>
+                        <input type="email" id="emailInp" name="email" class="form-control" placeholder="Email"
+                            aria-label="Email" aria-describedby="email_field_icon" required>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="input-group mb-3 grouped-input">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text fa fa-lock fa-lg"></span>
+                        </div>
+                        <input type="password" id="passInp" name="pass" class="form-control" placeholder="Password"
+                            aria-label="Password" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6"></div>
+                    <a href="#" id="forgot-password-text" style="text-align: end;">Forgot password?</a>
+                </div>
+
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="button-opt">Login</button>
+                </div>
+            </form>
+
+            <div class="col-sm-12 text-center">
+                <p id="btw-btn-text">Or</p>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="button" class="button-opt" onclick="location.href='{% url 'signup' %}'">Register</button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div id="copyright-icon" class="col-sm-2">
+                    <span> <i class="fa fa-copyright"></i class="fa fa-copyright"> 2020, Meeting App</span>
+                </div>
+                <div class="col-sm-8"></div>
+                <div class="col-sm-2">
+                    <div id="social-icons" class="text-center">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <script>
+        let registerBtn = document.getElementById("registerBtn");
+
+        $("#loginForm").on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "login" %}',
+                data: {
+                    email: $('#emailInp').val(),
+                    password: $('#passInp').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success: function (json) {
+                    document.getElementById("loginForm").reset();
+
+                    window.location = "{% url 'home'  %}";
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
