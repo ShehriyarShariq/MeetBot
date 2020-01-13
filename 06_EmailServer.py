@@ -38,7 +38,7 @@ dateMonthRegex = re.compile(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
 timeDiffRegex = re.compile(r'[+,-]\d\d\d\d') # Time Correction String Extraction
 
 # Firebase admin sdk init
-cred = credentials.Certificate("DBKey/meetingsetter-9605e-firebase-adminsdk-yd4bp-607b138bfd.json")
+cred = credentials.Certificate("DBKey/meetingsetter-9605e-firebase-adminsdk-yd4bp-b3da424d05.json")
 firebase_admin.initialize_app(cred, {
         'databaseURL' : 'https://meetingsetter-9605e.firebaseio.com/'
 })
