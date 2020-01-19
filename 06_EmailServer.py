@@ -95,7 +95,7 @@ class MeetingSetter:
                                         organizations.append(loc)
                         else:
                                 if j > 0: # If not first word
-                                        if 'TO' in str(chunked[j - 1]): # Were proceeded by 'to'
+                                        if ('TO' in str(chunked[j - 1])) and ('DT' not in str(chunked[j])): # Were proceeded by 'to'
                                                 if str(i[0]) != "IGNORE": # If not an email
                                                         organizations.append(i[0])
                         j += 1
