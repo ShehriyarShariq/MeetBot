@@ -26,6 +26,9 @@ from firebase_admin import credentials, auth, db
 from functools import partial
 from random import randint
 
+#MD5 Hashing Library
+import hashlib
+
 # List of Constant Literals
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -105,6 +108,9 @@ class MeetingSetter:
                 # Utility function to remove all digits from a string, leaving only letters
                 return ''.join([i for i in text if not i.isdigit()])
 
+        def removeNonAlphaNumCharsFromStr(self, text):
+                return ''.join([i for i in text if i.isalnum()])
+
         def getDuration(self, text):
                 # Extract duration based on provided general duration specifiers
                 duration = ''
@@ -112,8 +118,8 @@ class MeetingSetter:
                 for i in range(0, len(words)):
                         if words[i].lower() in self.durationKeywords: # Separate specifier
                                 duration += str(words[i - 1]) + str(words[i]) + ' '
-                        elif self.removeDigitsFromStr(words[i].lower()) in self.durationKeywords: # Combined specifier
-                                duration += str(words[i]) + ' '
+                        elif self.removeDigitsFromStr(self.removeNonAlphaNumCharsFromStr(words[i].lower())) in self.durationKeywords: # Combined specifier
+                                duration += self.removeNonAlphaNumCharsFromStr(str(words[i])) + ' '
                 
                 return duration
 
@@ -123,12 +129,12 @@ class MeetingSetter:
                 locations = self.getLocations(self.text)
                 duration = self.getDuration(self.text)
 
-                print()
-                print('Sentence: ' + self.text)
-                print('Emails: ' + str(', '.join(emails)))
-                print('Locations: ' + str(', '.join(locations)))
-                print('Duration: ' + str(duration))
-                print()
+                # print()
+                # print('Sentence: ' + self.text)
+                # print('Emails: ' + str(', '.join(emails)))
+                # print('Locations: ' + str(', '.join(locations)))
+                # print('Duration: ' + str(duration))
+                # print()
 
         def getDetails(self):
                 emails = self.getEmails(self.text)
@@ -169,8 +175,22 @@ class MeetingScheduler:
                 }
                 self.timeSlots.append(initTimeRange)
                 
-                # Add MeetingID to Initiator User object
-                root.child("Users/" + self.initiatorID + "/Scheduled/" + self.meetingID).set('meetingID')
+                #Check initiator db node
+                initiatorNodeCheck = root.child("Users/" + self.initiatorID).get()
+                if initiatorNodeCheck == None:
+                        newUser = self.getNewUserMap(self.initiator, self.meetingID)
+                        root.child("Users/" + self.initiatorID).set(newUser)
+                else:
+                        # Add MeetingID to Initiator User object
+                        root.child("Users/" + self.initiatorID + "/Scheduled/" + self.meetingID).set('meetingID')
+
+                #Check all invitees db node
+                for i in range(0, len(self.inviteesID)):
+                        inviteeNodeCheck = root.child("Users/" + self.inviteesID[i]).get()
+                        if inviteeNodeCheck == None:
+                                newInvitee = self.getNewUserMap(self.invitees[i], None)
+                                root.child("Users/" + self.inviteesID[i]).set(newInvitee)
+
                 
         def addListener(self):
                 # Attach a listener to listen to the ping attribute of the Meeting object 
@@ -263,8 +283,7 @@ class MeetingScheduler:
 
         def getFinalTimeSlot(self):
                 # Get the very first available timeslot
-                timeSlots = root.child("Meetings/" + self.meetingID + "/timeSlots").get()
-                print(timeSlots[0])
+                timeSlots = root.child("Meetings/" + self.meetingID + "/timeSlots").get()                
 
                 finalTimeSlot = []
                 finalTimeSlot.append(timeSlots[0])
@@ -281,6 +300,23 @@ class MeetingScheduler:
                         "timeSlots": self.timeSlots,
                         "ping": 0
                 }
+
+        def getNewUserMap(self, email, scheduledMeeting):
+                user = {
+                        "email": email,
+                        "name": "N/A",
+                        "Requests": {
+                                "meetingID": "meetingID"
+                        },
+                        "Scheduled": {
+                                "meetingID": "meetingID"                                
+                        }
+                }
+
+                if scheduledMeeting != None:
+                        user['Scheduled'][scheduledMeeting] = "meetingID"
+
+                return user
 
         def getPing(self):
                 return self.ping
@@ -376,19 +412,12 @@ def correctTimeStr(time, correction):
         return time
 
 def calcTimeDiff(time1, time2):
-        # print(time1)
-
         # Time str
         time1TimeStr = timeRegex.search(time1).group()
         
         # Time correction Str
         time1TimeDiff = (timeDiffRegex.search(time1)).group()
-        
-        # print(time1TimeDiff)
-        
         time1TimeStr = correctTimeStr(time1TimeStr, time1TimeDiff)
-        
-        # print(time1TimeStr)
 
         # Email sent date
         time1Date = dateRegex.search(time1)
@@ -452,18 +481,13 @@ while(True):
                                                 "scriptReadDelay" : calcTimeDiff(raw['Date'], getCurrDate()),
                                                 "body" : getBody(raw) 
                                         }
-
                                         
-                                        
-                                        meetingSetter.setText(str(body)) # Init source for extraction
-                                        #meetingSetter.display()
+                                        meetingSetter.setText(str(body)) # Init source for extraction                                
                                         emailDetails = meetingSetter.getDetails()
                                         
-                                        #genEmailContent(emailFrom, emailDetails)
-                                        
-                                        initiatorEmail = re.findall(emailRegex, emailFrom)[0]                                
-                                        initiator = auth.get_user_by_email(initiatorEmail)
-                                        initiatorID = initiator.uid                                        
+                                        initiatorEmail = re.findall(emailRegex, emailFrom)[0]     
+                                        initiatorEmailHash = hashlib.md5(initiatorEmail.encode())               
+                                        initiatorID = initiatorEmailHash.hexdigest()                                        
                                         
                                         # Init meetingID
                                         meetingID = initiatorID + "_" + str(int(time.time() * 1000))
@@ -471,9 +495,9 @@ while(True):
                                         inviteesID = []
                                         inviteesEmail = emailDetails['emails']
                                         for i in range(0, len(inviteesEmail)):
-                                                invitee = auth.get_user_by_email(inviteesEmail[i])
-                                                print(invitee.uid)
-                                                inviteesID.append(invitee.uid)
+                                                inviteeEmail = inviteesEmail[i]                                        
+                                                emailHash = hashlib.md5(inviteeEmail.encode())
+                                                inviteesID.append(emailHash.hexdigest())
 
                                         # Create Meeting Object and store it in a dictionary
                                         allMeetings[meetingID] = MeetingScheduler(meetingID, initiatorID, emailFrom, emailDetails['duration'], str(', '.join(emailDetails['locations'])), emailDetails['emails'], inviteesID)
