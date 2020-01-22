@@ -253,7 +253,7 @@ class MeetingScheduler:
                 if len(self.location) > 0:
                         content += " at " + self.location
                 
-                content += """. Please select the time and date for the meeting at:meetbot.pythonanywhere.com</p>
+                content += """. Please select the date and time for the meeting through one of the apps.</p>
                                                 <div style="margin-top:50px;text-align: justify;text-align-last: center;">
                                                         <input 
                                                                 type="image" 
