@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -66,6 +67,16 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         viewModel = ViewModelProviders.of(this).get(SignUpActivityViewModel.class);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        binding.firstNameInpLayout.setRadius((float) (((width * 0.78) * 0.162) / 2));
+        binding.lastNameInpLayout.setRadius((float) (((width * 0.78) * 0.162) / 2));
+        binding.emailInpLayout.setRadius((float) (((width * 0.78) * 0.162) / 2));
+        binding.passwordInpLayout.setRadius((float) (((width * 0.78) * 0.162) / 2));
+        binding.signUpBtn.setRadius((float) (((width * 0.78) * 0.162) / 2));
 
         // Initialize Facebook signin
         FacebookSdk.sdkInitialize(getApplicationContext());

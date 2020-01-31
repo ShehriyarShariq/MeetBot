@@ -1,6 +1,8 @@
 package com.shehriyar.meetingsetter.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,6 +38,38 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         viewModel = ViewModelProviders.of(this).get(LoginActivityViewModel.class);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        float cardViewRadius = (float) (((width * 0.78) * 0.162) / 2);
+
+        binding.emailInpLayout.setRadius(cardViewRadius);
+        binding.passwordInpLayout.setRadius(cardViewRadius);
+        binding.loginBtn.setRadius(cardViewRadius);
+        binding.registerBtn.setRadius(cardViewRadius);
+
+        double appIconWidth = width * 0.378;
+        double appIconHeight = appIconWidth * 0.69;
+        double appIconDiagonalLength = Math.sqrt(Math.pow(appIconHeight, 2) + Math.pow(appIconWidth, 2));
+        double appIconStrikeAngle = 90 - Math.toDegrees(Math.atan(appIconWidth / appIconHeight));
+
+        ConstraintLayout.LayoutParams strike01LayoutParams = (ConstraintLayout.LayoutParams) binding.strike01.getLayoutParams();
+        strike01LayoutParams.width = (int) appIconDiagonalLength;
+        binding.strike01.setLayoutParams(strike01LayoutParams);
+
+        binding.strike01.setRotation((float) appIconStrikeAngle);
+
+        ConstraintLayout.LayoutParams strike02LayoutParams = (ConstraintLayout.LayoutParams) binding.strike02.getLayoutParams();
+        strike02LayoutParams.width = (int) appIconDiagonalLength;
+        binding.strike02.setLayoutParams(strike02LayoutParams);
+
+//        binding.strike02.setPivotY(0);
+//        binding.strike02.setPivotX((float) appIconHeight);
+
+        binding.strike02.setRotation((float) -appIconStrikeAngle);
+
 
         // Initialize Dialog
         logInProgressDialog = new LoaderDialog(this, "Login");

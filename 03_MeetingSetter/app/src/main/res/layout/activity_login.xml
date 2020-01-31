@@ -11,8 +11,28 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/gap01"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H, 1:0.21"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/gap02"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H, 1:0.52"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/gap03"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="H, 1:0.803"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/appIcon"
@@ -20,146 +40,206 @@
                 android:layout_height="0dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="0.5dp"
-                app:layout_constraintDimensionRatio="H, 1:0.65"
+                app:layout_constraintDimensionRatio="H, 1:0.69"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".4" />
+                app:layout_constraintTop_toBottomOf="@id/gap01"
+                app:layout_constraintWidth_percent="0.378">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <View
+                        android:id="@+id/strike01"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#000"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <View
+                        android:id="@+id/strike02"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#000"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/appName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:text="Logo Meeting App"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="30sp"
-                app:layout_constraintTop_toBottomOf="@+id/appIcon" />
+                android:textSize="24sp"
+                app:layout_constraintWidth_percent="0.55"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gap02"
+                app:layout_constraintDimensionRatio="H, 1:0.162"/>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appName"
-                app:layout_constraintWidth_percent="0.85">
+                app:layout_constraintTop_toBottomOf="@+id/gap03"
+                app:layout_constraintWidth_percent="0.78">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/emailInpLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    app:cardCornerRadius="27.5dp">
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.161"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
                         android:id="@+id/emailInp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="25dp"
-                        android:layout_marginTop="5dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="2dp"
                         android:backgroundTint="@color/white"
                         android:drawableLeft="@drawable/ic_email"
                         android:drawablePadding="30dp"
                         android:hint="Email"
                         android:inputType="textEmailAddress"
-                        android:textSize="22dp"
+                        android:textSize="18dp"
                         app:errorEnabled="false" />
 
                 </androidx.cardview.widget.CardView>
 
+                <View
+                    android:id="@+id/gap04"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.039"
+                    app:layout_constraintTop_toBottomOf="@+id/emailInpLayout"/>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/passwordInpLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="15dp"
-                    app:cardCornerRadius="27.5dp">
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.162"
+                    app:layout_constraintTop_toBottomOf="@+id/gap04">
 
                     <EditText
                         android:id="@+id/passInp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="25dp"
-                        android:layout_marginTop="5dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="2dp"
                         android:backgroundTint="@color/white"
                         android:drawableLeft="@drawable/ic_password"
                         android:drawablePadding="30dp"
                         android:hint="Password"
                         android:inputType="textPassword"
-                        android:textSize="22dp"
+                        android:textSize="18dp"
                         app:errorEnabled="false" />
 
                 </androidx.cardview.widget.CardView>
+
+                <View
+                    android:id="@+id/gap05"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.029"
+                    app:layout_constraintTop_toBottomOf="@+id/passwordInpLayout"/>
 
                 <TextView
                     android:id="@+id/forgetPassBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="10dp"
-                    android:text="Forget Password"
+                    android:text="Forgot Password"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="12sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gap05"/>
+
+                <View
+                    android:id="@+id/gap06"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.075"
+                    app:layout_constraintTop_toBottomOf="@+id/forgetPassBtn"/>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/loginBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_height="0dp"
                     app:cardBackgroundColor="@color/darkPurple"
-                    app:cardCornerRadius="26dp">
+                    app:cardCornerRadius="26dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.162"
+                    app:layout_constraintTop_toBottomOf="@+id/gap06">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center"
-                        android:padding="11dp"
                         android:text="Login"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="22sp" />
+                        android:textSize="20sp" />
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <View
+                    android:id="@+id/gap07"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.043"
+                    app:layout_constraintTop_toBottomOf="@+id/loginBtn"/>
+
                 <TextView
+                    android:id="@+id/orTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Or"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/gap07" />
+
+                <View
+                    android:id="@+id/gap08"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.043"
+                    app:layout_constraintTop_toBottomOf="@+id/orTxt"/>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/registerBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="0dp"
                     app:cardBackgroundColor="@color/darkPurple"
-                    app:cardCornerRadius="26dp">
+                    app:cardCornerRadius="26dp"
+                    app:layout_constraintDimensionRatio="H, 1:0.162"
+                    app:layout_constraintTop_toBottomOf="@+id/gap08">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center"
-                        android:padding="11dp"
                         android:text="Register"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="22sp" />
+                        android:textSize="20sp" />
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
