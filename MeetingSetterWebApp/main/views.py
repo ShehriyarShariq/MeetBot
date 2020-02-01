@@ -98,6 +98,8 @@ def signup(request):
                                 }
 
                                 root.child("Users/" + userID).set(newUserDB)
+                        else:
+                                root.child("Users/" + userID + "/name").set(post['name'])
 
                         return JsonResponse({"result" : "success"})                
 
