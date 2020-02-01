@@ -4,11 +4,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
 import firebase_admin
-from firebase_admin import credentials, auth as firebaseAuth, db
+from firebase_admin import credentials, auth as firebaseAuth, db, exceptions as fbExcep
 import pyrebase
 from datetime import datetime, timedelta 
 
 import json
+
+#MD5 Hashing Library
+import hashlib
 
 # Firebase admin sdk
 cred = credentials.Certificate("main/key/meetingsetter-9605e-firebase-adminsdk-yd4bp-b3da424d05.json")
@@ -45,14 +48,19 @@ def login(request):
         post = request.POST
         if "action" in post:
                 global user
+
+                try:
+                        userCheck = firebaseAuth.get_user_by_email(post['email'])
+                except fbExcep.NotFoundError:t()
+                        return JsonResponse({"isValid": "false"})                                
+
                 user = firebase.auth().sign_in_with_email_and_password(post['email'], post['password'])
-                uid = user['idToken']
 
-                request.session['uid'] = str(uid)
+                request.session['email'] = post['email']
                 
-                return JsonResponse({"token" : "none"})
+                return JsonResponse({"isValid" : "true"})
 
-        if "uid" in request.session:
+        if "email" in request.session:
                 return redirect('home')
 
         return render(request, "login.html")
@@ -60,14 +68,38 @@ def login(request):
 def signup(request):
         post = request.POST
         if "action" in post:
-                print(post)
-                user = firebaseAuth.create_user(
-                        display_name = post['name'],
-                        email = post['email'],
-                        password = post['password'] 
-                )
+                try:
+                        userCheck = firebaseAuth.get_user_by_email(post['email'])
+                
+                        return JsonResponse({"result" : "failure"})
+                        
+                except fbExcep.NotFoundError:
+                        user = firebaseAuth.create_user(
+                                display_name = post['name'],
+                                email = post['email'],
+                                password = post['password'] 
+                        )
 
-                return JsonResponse({"result" : "success"})
+                        userEmailHash = hashlib.md5(post['email'].encode())               
+                        userID = userEmailHash.hexdigest()
+
+                        userDBCheck = root.child("Users/" + userID).get()
+
+                        if userDBCheck == None:                                
+                                newUserDB = {
+                                        "Requests": {
+                                                "meetingID" : "meetingID"
+                                        },
+                                        "Scheduled": {
+                                                "meetingID" : "meetingID"
+                                        },
+                                        "email": post['email'],
+                                        "name": post['name']                        
+                                }
+
+                                root.child("Users/" + userID).set(newUserDB)
+
+                        return JsonResponse({"result" : "success"})                
 
         return render(request, "signup.html")
 
@@ -77,11 +109,17 @@ def logout(request):
 
 
 def home(request):
-        meetings = []
-        user = firebase.auth().get_account_info(request.session['uid'])
-        user = user['users'][0]
+        try:
+            checkUser = request.session['email']
+        except KeyError:
+            return redirect('login')
         
-        uid = user['localId']
+        userEmailHash = hashlib.md5((request.session['email']).encode())               
+        uid = userEmailHash.hexdigest()
+
+        meetings = []
+        user = root.child("Users/" + uid).get()
+        
         reqsCheck = checkMeetingRequests(uid)
         if reqsCheck != "none":
                 return redirect('meeting_request', meeting_id=reqsCheck)
@@ -95,20 +133,19 @@ def home(request):
                 initiatorID = meeting['initiator']
                 inviteesID = meeting['invitees']
 
-                initiator = firebaseAuth.get_user(initiatorID)
+                initiator = root.child("Users/" + initiatorID).get()
+                initiatorName = "N/A"
+
+                if initiator != None:
+                        initiatorName = initiator["name"]
 
                 invitees = []
 
                 for i in range(0, len(inviteesID)):
-                        invitee = firebaseAuth.get_user(inviteesID[i])
-
-                        name = invitee.display_name
-                        if name == None:
-                                name = "N/A"
-
+                        invitee = root.child("Users/" + inviteesID[i]).get()
                         invitees.append({
-                                'name' : name,
-                                'email' : invitee.email 
+                                'name' : invitee["name"],
+                                'email' : invitee["email"] 
                         })                        
 
                 timeInS = datetime.fromtimestamp(startTime / 1000.0)
@@ -119,16 +156,11 @@ def home(request):
                         'date' : dateStr,
                         'start' : timeStr,
                         'location' : meeting['location'],
-                        'initiatorName' : initiator.display_name,
+                        'initiatorName' : initiatorName,
                         'invitees' : invitees 
                 })
 
-        username = firebaseAuth.get_user(uid)
-        username = username.display_name
-        if username == None:
-                username = "N/A"
-
-        return render(request, "home.html", {'meetings' : meetings, 'name' : username})
+        return render(request, "home.html", {'meetings' : meetings, 'name' : user["name"]})
 
 def meetingRequest(request, meeting_id):
         post = request.POST
@@ -159,7 +191,11 @@ def meetingRequest(request, meeting_id):
         meeting = root.child("Meetings/" + meeting_id).get()
         
         initiatorID = meeting['initiator']
-        initiator = firebaseAuth.get_user(initiatorID)
+        initiator = root.child("Users/" + initiatorID).get()
+        initiatorName = "N/A"
+
+        if initiator != None:
+                initiatorName = initiator["name"]
 
         timeSlots = meeting['timeSlots']
 
@@ -187,16 +223,13 @@ def meetingRequest(request, meeting_id):
 
         meetingInfo = {
                 'duration' : meeting['duration'].replace(" ", ""),
-                'initiatorName' : initiator.display_name,
+                'initiatorName' : initiatorName,
                 'timeSlots' : timeSlots,
                 'timeSlotsStr': timeSlotsStr
         }
 
-        if user == None:
-                username = "N/A"
-        else:
-                username = user['displayName']
-                if username == '':
-                        username = "N/A"
+        userEmailHash = hashlib.md5((request.session['email']).encode())               
+        uid = userEmailHash.hexdigest()
+        currUserName = root.child("Users/" + uid + "/name").get()
 
-        return render(request, "request.html", {"meeting" : meetingInfo, 'name' : username})
+        return render(request, "request.html", {"meeting" : meetingInfo, 'name' : currUserName})
