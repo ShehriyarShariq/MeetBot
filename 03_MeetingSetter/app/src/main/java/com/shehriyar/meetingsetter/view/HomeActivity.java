@@ -60,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+        scheduledMeetingsListAdapter.setHasStableIds(true);
         binding.scheduledMeetingsList.setAdapter(scheduledMeetingsListAdapter);
 
         requestedMeetingListAdapter = new MeetingsListAdapter(this, scheduledMeetingsID, new MeetingsListEventListener() {

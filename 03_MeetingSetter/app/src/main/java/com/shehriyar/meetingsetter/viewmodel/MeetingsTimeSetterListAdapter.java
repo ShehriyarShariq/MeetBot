@@ -63,7 +63,7 @@ public class MeetingsTimeSetterListAdapter extends RecyclerView.Adapter<Meetings
         final Time endTimeActual = new Time(endTime);
 
         CalendarDay date = timeRange.getDate();
-        Date currDate = new Date(date.getYear() - 1900, date.getMonth(), date.getDay());
+        Date currDate = new Date(date.getYear() - 1900, date.getMonth() - 1, date.getDay());
 
         boolean isRange = rangeStartDate.isBefore(rangeEndDate) && rangeEndDate.isAfter(rangeStartDate);
 

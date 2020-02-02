@@ -176,6 +176,7 @@ public class CalendarActivity extends AppCompatActivity {
                     timeRanges.addAll(tempTimeRanges);
 
                     for(CalendarDay date : selectedDatesCurr){
+
                         if(!tempSelectedDays.contains(date)){
                             timeRanges.add(new TimeRange(date, null, null));
                         }

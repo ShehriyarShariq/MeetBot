@@ -181,6 +181,11 @@ public class MeetingsListAdapter extends RecyclerView.Adapter<MeetingsListAdapte
         }
     }
 
+    @Override
+    public void setHasStableIds(boolean hasStableIds) {
+        super.setHasStableIds(hasStableIds);
+    }
+
     public void refreshDataset(ArrayList<String> meetingsID){
         this.meetingsID = meetingsID;
         notifyDataSetChanged();

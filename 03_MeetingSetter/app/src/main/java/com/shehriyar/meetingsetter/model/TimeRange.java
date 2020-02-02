@@ -4,6 +4,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class TimeRange {
@@ -67,14 +68,11 @@ public class TimeRange {
     public HashMap<String, Long> getDBMap(){
         HashMap<String, Long> dbMap = new HashMap<>();
 
-        Calendar startTimeCal = Calendar.getInstance();
-        Calendar endTimeCal = Calendar.getInstance();
-        startTimeCal.set(date.getYear(), date.getMonth(), date.getDay(), startTime.getHours(), startTime.getMinutes());
-        endTimeCal.set(date.getYear(), date.getMonth(), date.getDay(), endTime.getHours(), endTime.getMinutes());
+        Date startTimeCal = new Date(date.getYear() - 1900, date.getMonth() - 1, date.getDay(), startTime.getHours(), startTime.getMinutes());
+        Date endTimeCal = new Date(date.getYear() - 1900, date.getMonth() - 1, date.getDay(), endTime.getHours(), endTime.getMinutes());
 
-
-        dbMap.put("start", startTimeCal.getTimeInMillis());
-        dbMap.put("end", endTimeCal.getTimeInMillis());
+        dbMap.put("start", startTimeCal.getTime());
+        dbMap.put("end", endTimeCal.getTime());
 
         return dbMap;
     }
