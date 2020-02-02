@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.shehriyar.meetingsetter.util.UtilFunctions;
 
 import java.util.HashMap;
 
@@ -93,7 +94,7 @@ public class SignUpActivityNetworkRequestsSingleton {
         newUserMap.put("Requests", meetings);
         newUserMap.put("Scheduled", meetings);
 
-        firebaseDatabase.child("Users").child(newUser.getUid()).setValue(newUserMap);
+        firebaseDatabase.child("Users").child(UtilFunctions.md5(firebaseAuth.getCurrentUser().getEmail())).setValue(newUserMap);
 
     }
 

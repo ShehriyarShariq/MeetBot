@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.shehriyar.meetingsetter.R;
 import com.shehriyar.meetingsetter.databinding.ActivityHomeBinding;
 import com.shehriyar.meetingsetter.listener.MeetingsListEventListener;
+import com.shehriyar.meetingsetter.util.UtilFunctions;
 import com.shehriyar.meetingsetter.viewmodel.MeetingsListAdapter;
 
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
         scheduledMeetingsListAdapter.refreshDataset(scheduledMeetingsID);
         requestedMeetingListAdapter.refreshDataset(requestedMeetingsID);
 
-        firebaseDatabase.child("Users").child(firebaseAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase.child("Users").child(UtilFunctions.md5(firebaseAuth.getCurrentUser().getEmail())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashMap<String, String> scheduledMeetings = (HashMap<String, String>) dataSnapshot.child("Scheduled").getValue();
